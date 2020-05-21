@@ -425,3 +425,10 @@ string toBin(string str,int n)
 > 將 decimal轉為 binary。  
 > 如為負數，須以2's complement 表示。  
 > 僅回傳限定長度的 ans。  
+
+
+##常見問題  
+- 輸入多餘的空格  
+- register必須由"R"+ 數字 構成   
+- label 後若不直接續接程式碼，須採換行分割，不可有多餘之空白   
+- 非 RV32I之指令( ex.   ld,sd)   
