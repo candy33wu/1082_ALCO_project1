@@ -350,3 +350,22 @@ void bType(string input,int pc)
 > imm、rd則是將數字的部分取出，去呼叫 toBin這個 function將數字轉為 binary。    
 > imm 需多作分割動作，分為 i12、i10、i4、i11。  
 > 最後依" i12 | i10 | rs2  | rs1 | fun3 | i4 | i11 | op "的格式輸出。  
+
+
+```cpp  
+string findoffset(string str,int pc,int limit) {
+	int offset = 0;
+	string ans;
+	for (int i = 0; i < label.size(); ++i) {
+		if (str == label[i]) {
+			offset = 4*(lbnum[i] - pc);
+			break;
+		}
+	}
+	ans = to_string(offset);
+	ans = toBin(ans, limit);
+	return ans;
+}
+```
+> 找到指定 label位置，算出其與當前 pc相距多遠。  
+> 再將結果呼叫 toBin換算成 2進位回傳。  
