@@ -253,3 +253,57 @@ void sType(string input, int pc)
 > immf、immb、rs1和 rs2則是將數字的部分取出，去呼叫 toBin這個 function將數字轉為 binary。    
 > 最後依" immf | rs2 | rs1 | fun3  | immb | op "的格式輸出。   
 
+```cpp  
+void uType(string input, int pc)
+{
+	string op, imm, rd, str[3];
+	int p;
+	p = input.find(" ", 0);
+	str[0] = input.substr(0, p);
+	input = input.substr(p + 1, input.length());
+	for (int i = 1; i < 3; i++) {
+		p = input.find(",", 0);
+		str[i] = input.substr(0, p);
+		input = input.substr(p + 1, input.length());
+	}
+	rd = toBin(str[1],5);
+	imm = toBin(str[2],32);
+	imm = imm.substr(imm.length()-20, imm.length());
+	if (str[0] == "lui")
+		op = "0110111";
+	else
+		op = "0010111";
+	cout << imm <<" | " << rd << " | " << op << endl;
+}
+```
+> 處理字串將其切割為 3個部分存入 str陣列。    
+> op code是依照表格直接賦予其值。    
+> imm、rd則是將數字的部分取出，去呼叫 toBin這個 function將數字轉為 binary。   
+> 最後依" imm | rs1| fun3  | rd | op "的格式輸出 。  
+
+```cpp  
+void ujType(string input,int pc) 
+{
+	string offset,op, rd, str[3],i20,i10,i11,i19;//
+	int p,off;
+	p = input.find(" ", 0);
+	str[0] = input.substr(0, p);
+	input = input.substr(p + 1, input.length());
+	p = input.find(",", 0);
+	str[1] = input.substr(0, p);
+	input = input.substr(p + 1, input.length());
+	str[2] = input.substr(0, input.length());
+	rd = toBin(str[1], 5);
+	offset = findoffset(str[2], pc,21);
+	i20 = offset[20];
+	i10 = offset.substr(1, 9);
+	i11 = offset[11];
+	i19 = offset.substr(12, 8);
+	op = "1101111";
+	cout << i20<<i10<<i11<<i19 <<" | " << rd << " | " << op << endl;
+}
+```
+> 處理字串將其切割為 3個部分存入 str陣列。    
+> op code是依照表格直接賦予其值。    
+> imm、rd則是將數字的部分取出，去呼叫 toBin這個 function將數字轉為 binary。   
+> 最後依" imm | rs1| fun3  | rd | op "的格式輸出。  
