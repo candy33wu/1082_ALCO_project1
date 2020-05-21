@@ -21,5 +21,19 @@
 ### 基本原理:  
 找出各 type規律並且以其為基準，將各指令對應正確之分類，並以其分類給予正確的 mechine code。  
 
-![avatar](https://upload.cc/i1/2020/05/21/l6H1Bb.jpg)  
+![avatar](https://upload.cc/i1/2020/05/21/l6H1Bb.jpg)   
+
+### 引用函式庫說明:  
+```cpp
+#include<iostream> //負責輸出/輸入
+```
+```cpp
+#include<cstring>  //負責字串處理
+```
+```cpp
+#include<vector> //container
+```
+```cpp
+#include <sstream> //用以將 string轉換成 int  
+```   
 
