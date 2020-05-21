@@ -369,3 +369,59 @@ string findoffset(string str,int pc,int limit) {
 ```
 > 找到指定 label位置，算出其與當前 pc相距多遠。  
 > 再將結果呼叫 toBin換算成 2進位回傳。  
+
+```cpp 
+string toBin(string str,int n)
+{
+	bool neg = false;
+	string ans = "00000000000000000000000000000000";
+	string s;
+	if(str[0]=='x')
+		str=str.substr(1, str.length());
+	if (str[0] == '-'){
+		ans = "11111111111111111111111111111111";
+		str = str.substr(1, str.length());
+		neg = true;
+	}
+
+	int buffer;
+	stringstream ss;
+	ss << str;
+	ss >> buffer;
+	ss.str("");
+	ss.clear();
+	long long int total = 0, m = 1;
+	
+	while (buffer != 0) {
+		total += ((buffer % 2) * m);
+		buffer /= 2;
+		m *= 10; 
+	}
+	ss << total;
+	ss >> s;
+	if (neg) {
+		for (int i = 0; i < s.length(); ++i) {
+			if (s[i] == '1')
+				s[i] = '0';
+			else
+				s[i] = '1';
+		}
+		for (int i = s.length()-1; i >0 ; --i) {
+			if (s[i] == '1')
+				s[i] = '0';
+			else {
+				s[i] = '1';
+				break;
+			}
+		}
+	}
+	ans += s;
+	return ans.substr(ans.length() - n, ans.length());
+}
+```
+> 先判斷為正數還是負數以供 signed integer使用。  
+> 先初始 ans為 32-bit 0。  
+> 將字串作分割轉為10進位 int。  
+> 將 decimal轉為 binary。  
+> 如為負數，須以2's complement 表示。  
+> 僅回傳限定長度的 ans。  
