@@ -279,27 +279,35 @@ int main()
 	int p,pc;
 	getline(cin, input);
 	int cou = 0;
-	while (input[0]!=cin.eof()) {
-		 p = input.find("//", 0);
-		if ( p!=input.npos) {
-			input = input.substr(0,p);
-		}
-		inputall.push_back(input);
-		getline(cin, input);
-		cou++;
-	}
-	for (int i = 0; i < inputall.size(); ++i) {
-		p = inputall[i].find(':', 0);
-		if (p != inputall[i].npos) {
-
-			label.push_back(inputall[i].substr(0, p));
-			lbnum.push_back(i);
-			if (p + 1 < inputall[i].length()) {
-				inputall[i] = inputall[i].substr(p + 1, inputall[i].length());
-				if (inputall[i][0] == ' ')
-					inputall[i] = inputall[i].substr(1, inputall[i].length());
+	bool push;
+	while (input[0] != cin.eof()) {
+		push = true;
+		p = input.find("//", 0); //解決註解
+		if (p != input.npos) {
+			input = input.substr(0, p);
+			if (p == 0) {
+				cou--;
+				push = false;
 			}
 		}
+		p = input.find(':', 0); //處理label
+		if (p != input.npos) {
+			label.push_back(input.substr(0, p));
+			lbnum.push_back(cou);
+			if (p + 1 < input.length()) {//若label與inst未分行
+				input = input.substr(p + 1, input.length());
+				if (input[0] == ' ')
+					input = input.substr(1, input.length());
+			}
+			else {
+				push = false;
+				cou--;
+			}
+		}
+		if (push)
+			inputall.push_back(input);
+		getline(cin, input);
+		cou++;
 	}
 	for (int i = 0; i < inputall.size(); ++i) {
 		if (inputall[i].find("ui", 0) != inputall[i].npos) {
