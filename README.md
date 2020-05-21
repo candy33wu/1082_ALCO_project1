@@ -153,4 +153,65 @@ void rType(string input, int pc)
 > 處理字串將其切割為 6個部分存入 str陣列中。      
 > fun3、fun7和 op code是依照表格直接賦予其值。   
 > rs2、 rs1和 rd則是將數字的部分取出，去呼叫 toBin這個 function將數字轉為 binary。  
-> 最後依" fun7 | rs2| rs1 | fun3 | rd | op "的格式輸出。   
+> 最後依" fun7 | rs2| rs1 | fun3 | rd | op "的格式輸出。  
+ ```cpp
+void iType(string input, int pc)
+{
+	string imm, rs1, fun3, rd, op, str[4];
+	int p;
+	p = input.find(" ", 0);
+	str[0] = input.substr(0, p);
+	input = input.substr(p + 1, input.length());
+	if (str[0][0] == 'l') {
+		p = input.find(",", 0);
+		str[1] = input.substr(0, p);
+		if(input[p+1]!=' ')
+			input = input.substr(p + 1, input.length());
+		else
+			input = input.substr(p + 2, input.length());
+		p = input.find("(", 0);
+		str[3] = input.substr(0, p);
+		input = input.substr(p + 1, input.length());
+		str[2] = input.substr(0, input.length()-1);	
+	}
+	else {
+		for (int i = 1; i < 4; i++) {
+			p = input.find(",", 0);
+			str[i] = input.substr(0, p);
+			input = input.substr(p + 1, input.length());
+		}
+	}
+	if (str[0] == "addi" || str[0] == "jalr"|| str[0] == "lb")
+		fun3 = "000";
+	else if (str[0] == "lh"|| str[0]=="slli")
+		fun3 = "001";
+	else if(str[0] == "slti"||str[0]=="lw")
+		fun3 = "010";
+	else if (str[0] == "sltiu")
+		fun3 = "011";
+	else if (str[0] == "xori"||str[0]=="lbu")
+		fun3 = "100";
+	else if (str[0] == "lhu"||str[0]=="srai"||str[0]=="srli")
+		fun3 = "101";
+	else if (str[0] == "ori")
+		fun3 = "110";
+	else if (str[0] == "andi")
+		fun3 = "111";
+	if (str[0] == "jalr")
+		op = "1100111";
+	else if (str[0][0] == 'l')
+		op = "0000011";
+	else
+		op = "0010011";
+	rs1 = toBin(str[2], 5);
+	rd = toBin(str[1], 5);
+	imm = toBin(str[3], 12);
+	cout << imm << " | " << rs1 << " | " << fun3 << " | " << rd << " | " << op << endl;
+}
+```
+> 分為 2種狀況處理，其中一種為 load指令語法與其他略有不同。   
+> 處理字串將其切割為 5個部分存入 str陣列中。       
+> fun3和 op code是依照表格直接賦予其值。     
+> imm、 rs1和 rd則是將數字的部分取出，去呼叫 toBin這個 function將數字轉為 binary。     
+> 最後依" imm | rs1| fun3 | rd | op "的格式輸出。   
+
