@@ -82,3 +82,29 @@ for (int i = 0; i < inputall.size(); ++i) {
 > 尋找 label，處理如 label後續接指令的狀況，並將 label及其下一指令位置存入各陣列中。  
 > 處理每行輸入之字串，首先屏除註解，留下指令。  
 > 如非上述狀況，就將該行指令存入inputall，待後續作處理。  
+
+```cpp
+		for (int i = 0; i < inputall.size(); ++i) {
+		if (inputall[i].find("ui", 0) != inputall[i].npos) {
+			uType(inputall[i],i);
+		}
+		else if (inputall[i][0] == 'l' || inputall[i].find("i", 0) != inputall[i].npos || inputall[i].find("jalr", 0) != inputall[i].npos) {
+			iType(inputall[i],i);
+		}
+		else if (inputall[i][0] == 's' && inputall[i].find(" ", 0) == 2) {
+			sType(inputall[i],i);
+		}
+		else if (inputall[i][0] == 'b') {
+			bType(inputall[i],i);
+		}
+		else if (inputall[i].find("jal", 0) != inputall[i].npos) {
+			ujType(inputall[i],i);
+		}
+		else {
+			rType(inputall[i],i);
+		}
+	}
+}
+```
+> 依照各指令字元出現之規律，找到其對應 type  
+> 去呼叫相對之 function做處理  
