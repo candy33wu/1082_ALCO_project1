@@ -16,3 +16,10 @@
 > 輸出範例   
 ![avatar](https://upload.cc/i1/2020/05/21/oRfuqL.jpg)   
 
+## 程式結構說明:  
+
+### 基本原理:  
+找出各 type規律並且以其為基準，將各指令對應正確之分類，並以其分類給予正確的 mechine code。  
+
+![avatar](https://upload.cc/i1/2020/05/21/l6H1Bb.jpg)  
+
