@@ -307,3 +307,46 @@ void ujType(string input,int pc)
 > op code是依照表格直接賦予其值。    
 > imm、rd則是將數字的部分取出，去呼叫 toBin這個 function將數字轉為 binary。   
 > 最後依" imm | rs1| fun3  | rd | op "的格式輸出。  
+
+```cpp
+void bType(string input,int pc) 
+{
+	string imm, rs2, rs1, fun3,op, str[4],i12,i10,i4,i11;
+	int p;
+	p = input.find(" ", 0);
+	str[0] = input.substr(0, p);
+	input = input.substr(p + 1, input.length());
+	for (int i = 1; i < 4; i++) {
+		p = input.find(",", 0);
+		str[i] = input.substr(0, p);
+		input = input.substr(p + 1, input.length());
+	}
+	if (str[0] == "beq")
+		fun3 = "000";
+	else if (str[0] == "bne") 
+		fun3 = "001";
+	else if (str[0] == "blt")
+		fun3 = "100";
+	else if (str[0] == "bge")
+		fun3 = "101";
+	else if (str[0] == "bltu")
+		fun3 = "110";
+	else if (str[0] == "bgeu")
+		fun3 = "111";
+	op = "1100011";
+	rs2 = toBin(str[2], 5);
+	rs1 = toBin(str[1], 5);
+	imm = findoffset(str[3], pc,13);
+	i12 = imm[0];
+	i10 = imm.substr(2, 5);
+	i11 = imm[1];
+	i4 = imm.substr(8, 4);
+	cout << i12 << i10 << " | " << rs2 << " | " << rs1 << " | " <<fun3 << " | " << i4 << i11 << " | "<< op << endl;
+}
+```
+> 處理字串將其切割為4個部分存到 str陣列中。   
+> fun3、op code是依照表格直接賦予其值。      
+> 將指令中的 label提取出來，呼叫 findoffset用以計算目的端與當下 instruction相距多遠，將其值存入 imm中。     
+> imm、rd則是將數字的部分取出，去呼叫 toBin這個 function將數字轉為 binary。    
+> imm 需多作分割動作，分為 i12、i10、i4、i11。  
+> 最後依" i12 | i10 | rs2  | rs1 | fun3 | i4 | i11 | op "的格式輸出。  
