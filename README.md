@@ -12,4 +12,7 @@
 > 輸入範例  
 ![avatar](https://upload.cc/i1/2020/05/21/xAVMCU.jpg)    
 
+- Output: 螢幕顯示該段組合語言轉換後，各行指令對應之 mechine code，各行 code間以換行作分隔，其中又以 vartical bar作分隔，以供方便閱讀。   
+> 輸出範例   
+![avatar](https://upload.cc/i1/2020/05/21/oRfuqL.jpg)   
 
