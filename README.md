@@ -37,7 +37,7 @@
 #include <sstream> //用以將 string轉換成 int  
 ```   
 
-### Global變數說明:
+### Global變數說明:  
 ```cpp
 vector<string> inputall, label;
 //inputall: 用以存放每行輸入之指令資訊，待後續處理  
@@ -45,4 +45,22 @@ vector<string> inputall, label;
 ```
 ```cpp
 vector<int>lbnum; //存各label之下行指令的位置(程式內之行數)  
+``` 
+
+### 詳細程式碼說明  
+
+```cpp
+int main()
+{
+	string input;
+	int p,pc;
+	getline(cin, input);
+	int cou = 0;
+	bool push = true;
+
 ```  
+> input取各行 cin的指令。  
+> p為一暫存值，為找尋 string中某字元的位置。  
+> cou紀錄當前的讀取行數。  
+> push 決定該字串是否保留。  
+  
