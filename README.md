@@ -214,4 +214,42 @@ void iType(string input, int pc)
 > fun3和 op code是依照表格直接賦予其值。     
 > imm、 rs1和 rd則是將數字的部分取出，去呼叫 toBin這個 function將數字轉為 binary。     
 > 最後依" imm | rs1| fun3 | rd | op "的格式輸出。   
+```cpp
+void sType(string input, int pc)
+{
+	string temp,immf,immb, rs2, rs1, fun3, op, str[4];
+	int p;
+	p = input.find(" ", 0);
+	str[0] = input.substr(0, p);
+	input = input.substr(p + 1, input.length());
+	p = input.find(",", 0);
+	str[1] = input.substr(0, p);
+	input = input.substr(p + 1, input.length());
+	p = input.find("(", 0);
+	str[2] = input.substr(0, p);
+	if (str[2][0] == ' ')
+		str[2] = str[2].substr(1, str[2].length());
+	input = input.substr(p + 1, input.length());
+	str[3] = input.substr(0, input.length()-1);
+	if (str[0] == "sb")
+		fun3 = "000";
+	else if (str[0] == "sh")
+		fun3 = "001";
+	else if (str[0] == "sw")
+		fun3 = "010";
+	else
+		fun3 = "011";
+	op = "0100011";
+	rs2 = toBin(str[1], 5);
+	rs1 = toBin(str[3], 5);
+	temp = toBin(str[2], 12);
+	immf = temp.substr(0, 7);
+	immb = temp.substr(7, 11);
+	cout << immf << " | " << rs2 << " | " << rs1 << " | " << fun3 << " | " << immb << " | " << op << endl;
+}
+```
+> 處理字串將其切割為 6個部分存入 str陣列中。    
+> fun3和 op code是依照表格直接賦予其值。    
+> immf、immb、rs1和 rs2則是將數字的部分取出，去呼叫 toBin這個 function將數字轉為 binary。    
+> 最後依" immf | rs2 | rs1 | fun3  | immb | op "的格式輸出。   
 
