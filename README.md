@@ -108,3 +108,49 @@ for (int i = 0; i < inputall.size(); ++i) {
 ```
 > 依照各指令字元出現之規律，找到其對應 type  
 > 去呼叫相對之 function做處理  
+
+```cpp
+void rType(string input, int pc)
+{
+	string fun7, rs2, rs1, fun3, rd, op,str[4];
+	int p;
+	p = input.find(" ", 0);
+	str[0] = input.substr(0, p);
+	input = input.substr(p + 1, input.length());
+	for(int i=1;i<4;i++){
+		p = input.find(",", 0);
+		str[i] = input.substr(0, p);
+		input = input.substr(p + 1, input.length());
+	}
+	if (str[0] == "sub" || str[0] == "sra")
+		fun7 = "0100000";
+	else
+		fun7 = "0000000";
+	if (str[0] == "add" || str[0] == "sub")
+		fun3 = "000";
+	else if (str[0] == "sll")
+		fun3 = "001";
+	else if (str[0] == "slt")
+		fun3 = "010";
+	else if (str[0] == "sltu")
+		fun3 = "011";
+	else if (str[0] == "xor")
+		fun3 = "100";
+	else if (str[0] == "srl" || str[0] == "sra")
+		fun3 = "101";
+	else if (str[0] == "or")
+		fun3 = "110";
+	else
+		fun3 = "111";
+	
+	op = "0110011";
+	rs2 = toBin(str[3],5);
+	rs1 = toBin(str[2],5);
+	rd= toBin(str[1],5);
+	cout << fun7 << " | " << rs2 << " | " << rs1 << " | " << fun3 << " | " << rd << " | " << op << endl;
+}
+``` 
+> 處理字串將其切割為 6個部分存入 str陣列中。      
+> fun3、fun7和 op code是依照表格直接賦予其值。   
+> rs2、 rs1和 rd則是將數字的部分取出，去呼叫 toBin這個 function將數字轉為 binary。  
+> 最後依" fun7 | rs2| rs1 | fun3 | rd | op "的格式輸出。   
