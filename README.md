@@ -63,4 +63,22 @@ int main()
 > p為一暫存值，為找尋 string中某字元的位置。  
 > cou紀錄當前的讀取行數。  
 > push 決定該字串是否保留。  
-  
+ 
+```cpp
+for (int i = 0; i < inputall.size(); ++i) {
+		p = inputall[i].find(':', 0);
+		if (p != inputall[i].npos) {
+
+			label.push_back(inputall[i].substr(0, p));
+			lbnum.push_back(i);
+			if (p + 1 < inputall[i].length()) {
+				inputall[i] = inputall[i].substr(p + 1, inputall[i].length());
+				if (inputall[i][0] == ' ')
+					inputall[i] = inputall[i].substr(1, inputall[i].length());
+			}
+		}
+	}
+```  
+> 尋找 label，處理如 label後續接指令的狀況，並將 label及其下一指令位置存入各陣列中。  
+> 處理每行輸入之字串，首先屏除註解，留下指令。  
+> 如非上述狀況，就將該行指令存入inputall，待後續作處理。  
